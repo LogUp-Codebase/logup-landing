@@ -112,23 +112,19 @@ a { color: var(--color-primary); text-decoration: none; }
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.25rem;
+  flex-shrink: 0;
   color: var(--color-text);
 }
-.brand svg { flex-shrink: 0; }
-.brand .up { color: var(--color-primary); }
-.brand-copy { display: flex; flex-direction: column; line-height: 1; }
-.brand-name { white-space: nowrap; }
-.brand-descriptor {
-  margin-top: 4px;
-  color: var(--color-text-muted);
-  font: 500 0.47rem var(--font-mono);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  white-space: nowrap;
+.brand-logo {
+  display: block;
+  width: 164px;
+  height: 48px;
+  object-fit: cover;
+  object-position: center;
+}
+.footer-logo {
+  width: 150px;
+  height: 44px;
 }
 .main-nav { display: flex; align-items: center; gap: 26px; }
 .main-nav a {
@@ -209,29 +205,100 @@ a { color: var(--color-primary); text-decoration: none; }
   margin: 0 auto;
   display: grid;
   place-items: center;
+  isolation: isolate;
 }
-.orbit-ring {
+.orbit-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 15%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(30, 159, 232, 0.12), rgba(30, 159, 232, 0) 68%);
+  filter: blur(12px);
+  animation: radar-breathe 4.5s ease-in-out infinite;
+}
+.orbit-layer {
   position: absolute;
   inset: 0;
-  animation: orbit 24s linear infinite;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
 }
-@keyframes orbit { to { transform: rotate(360deg); } }
-.orbit-center {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.9rem;
-  text-align: center;
-  line-height: 1.1;
+.orbit-outer { animation: orbit-clockwise 32s linear infinite; }
+.orbit-inner { animation: orbit-counter 22s linear infinite; }
+.orbit-sweep {
+  position: absolute;
+  inset: 11%;
+  border-radius: 50%;
+  background: conic-gradient(from 10deg, transparent 0 78%, rgba(30, 159, 232, 0.18) 88%, transparent 94%);
+  mask-image: radial-gradient(circle, transparent 0 56%, #000 58% 67%, transparent 69%);
+  -webkit-mask-image: radial-gradient(circle, transparent 0 56%, #000 58% 67%, transparent 69%);
+  animation: orbit-clockwise 7s linear infinite;
 }
-.orbit-center .up { color: var(--color-primary); }
-.orbit-center small {
-  display: block;
-  font-family: var(--font-mono);
-  font-weight: 400;
-  font-size: 0.62rem;
-  letter-spacing: 0.2em;
-  color: var(--color-text-muted);
-  margin-top: 8px;
+.orbit-core {
+  position: relative;
+  width: 132px;
+  aspect-ratio: 1;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  border: 1px solid rgba(30, 159, 232, 0.24);
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 38%, rgba(26, 34, 53, 0.96), rgba(10, 14, 26, 0.92));
+  box-shadow: inset 0 0 36px rgba(30, 159, 232, 0.06), 0 0 45px rgba(0, 0, 0, 0.3);
+  animation: brand-arrival 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.orbit-core::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border: 1px dashed rgba(30, 159, 232, 0.16);
+  border-radius: 50%;
+  animation: orbit-counter 18s linear infinite;
+}
+.orbit-arrow-wrap {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  display: grid;
+  place-items: center;
+}
+.orbit-arrow-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 197, 24, 0.3), rgba(245, 197, 24, 0.06) 48%, transparent 70%);
+  animation: arrow-glow 3s ease-in-out infinite;
+}
+.orbit-arrow {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  filter: drop-shadow(0 0 7px rgba(245, 197, 24, 0.42)) drop-shadow(0 10px 16px rgba(245, 197, 24, 0.24));
+}
+.orbit-ping {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 2px solid var(--color-primary);
+  border-radius: 50%;
+  background: var(--color-bg);
+  box-shadow: 0 0 0 0 rgba(30, 159, 232, 0.35);
+  animation: ping 2.6s ease-out infinite;
+}
+.ping-one { top: 23%; right: 12%; }
+.ping-two { bottom: 17%; left: 20%; animation-delay: 1.1s; }
+@keyframes orbit-clockwise { to { transform: rotate(360deg); } }
+@keyframes orbit-counter { to { transform: rotate(-360deg); } }
+@keyframes radar-breathe { 50% { opacity: 0.58; transform: scale(1.05); } }
+@keyframes brand-arrival {
+  from { opacity: 0; transform: scale(0.76); filter: blur(7px); }
+  to { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+@keyframes arrow-glow { 50% { opacity: 0.45; transform: scale(1.12); } }
+@keyframes ping {
+  70%, 100% { box-shadow: 0 0 0 13px rgba(30, 159, 232, 0); }
 }
 
 /* Metrics */
@@ -1032,7 +1099,14 @@ a { color: var(--color-primary); text-decoration: none; }
 /* ============ REDUCED MOTION ============ */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .orbit-ring,
+  .orbit-outer,
+  .orbit-inner,
+  .orbit-sweep,
+  .orbit-core,
+  .orbit-core::before,
+  .orbit-arrow-wrap::before,
+  .orbit-wrap::before,
+  .orbit-ping,
   .status-badge .dot,
   .flow-node.engine .icon,
   .timeline-item.current::before,
@@ -1063,7 +1137,9 @@ a { color: var(--color-primary); text-decoration: none; }
   .hero-sub { margin-left: auto; margin-right: auto; }
   .hero-ctas { justify-content: center; }
   .orbit-wrap { order: -1; width: min(260px, 70vw); }
-  .orbit-center { font-size: 1.5rem; }
+  .orbit-core { width: 104px; }
+  .orbit-arrow-wrap { width: 56px; height: 56px; }
+  .orbit-arrow { width: 50px; height: 50px; }
   .hero-metrics { grid-template-columns: 1fr; margin-top: 56px; }
   .problem-grid, .stack-grid, .reason-grid, .market-grid, .compare-grid { grid-template-columns: 1fr; }
   .compare-col + .compare-col {
@@ -1087,7 +1163,7 @@ a { color: var(--color-primary); text-decoration: none; }
   .main-nav a:last-of-type { border-bottom: none; }
   .nav-toggle { display: grid; place-items: center; }
   .header-cta { display: none; }
-  .brand-descriptor { font-size: 0.42rem; }
+  .brand-logo { width: 145px; height: 43px; }
   .section-liveops { padding: 72px 0; }
   .liveops-main {
     grid-template-columns: 1fr;
@@ -1123,14 +1199,7 @@ a { color: var(--color-primary); text-decoration: none; }
 <header class="site-header" id="siteHeader">
   <div class="container header-inner">
     <a href="#hero" class="brand" aria-label="LogUp Mobility Intelligence — início">
-      <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="16" cy="16" r="13" stroke="var(--color-primary)" stroke-width="2" stroke-dasharray="3 4"/>
-        <path d="M16 22V11M16 11l-4.5 4.5M16 11l4.5 4.5" stroke="var(--color-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <span class="brand-copy">
-        <span class="brand-name">Log<span class="up">Up</span></span>
-        <span class="brand-descriptor">Mobility Intelligence</span>
-      </span>
+      <img class="brand-logo" src="Logup.png" alt="" width="164" height="48">
     </a>
     <nav class="main-nav" id="mainNav" aria-label="Navegação principal">
       <a href="#solucao">Solução</a>
@@ -1165,19 +1234,29 @@ a { color: var(--color-primary); text-decoration: none; }
         </div>
       </div>
       <div class="orbit-wrap" aria-hidden="true">
-        <svg class="orbit-ring" viewBox="0 0 360 360" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="180" cy="180" r="168" stroke="var(--color-primary-dark)" stroke-width="2" stroke-dasharray="4 10"/>
-          <circle cx="180" cy="180" r="142" stroke="var(--color-border)" stroke-width="1" stroke-dasharray="2 8"/>
-          <!-- seta dourada às 2h -->
-          <g transform="translate(266, 35) rotate(60)">
-            <path d="M0 14L7 0L14 14L7 10Z" fill="var(--color-accent)"/>
-          </g>
-          <circle cx="180" cy="348" r="4" fill="var(--color-primary)"/>
-          <circle cx="38" cy="110" r="3" fill="var(--color-primary-dark)"/>
+        <svg class="orbit-layer orbit-outer" viewBox="0 0 360 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="180" cy="180" r="168" stroke="var(--color-primary)" stroke-width="2" stroke-dasharray="4 10" opacity="0.75"/>
+          <path d="M180 12a168 168 0 0164 12" stroke="var(--color-accent)" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="180" cy="12" r="5" fill="var(--color-accent)"/>
+          <circle cx="348" cy="180" r="4" fill="var(--color-primary)"/>
+          <circle cx="62" cy="299" r="3" fill="var(--color-primary-dark)"/>
         </svg>
-        <div class="orbit-center">
-          Log<span class="up">Up</span>
-          <small>MOBILITY INTELLIGENCE</small>
+        <svg class="orbit-layer orbit-inner" viewBox="0 0 360 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="180" cy="180" r="142" stroke="var(--color-border)" stroke-width="1" stroke-dasharray="2 8"/>
+          <circle cx="180" cy="180" r="112" stroke="var(--color-primary-dark)" stroke-width="1" stroke-dasharray="1 13" opacity="0.65"/>
+          <path d="M72 89a142 142 0 0126-25" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+          <circle cx="286" cy="274" r="4" fill="var(--color-primary)"/>
+        </svg>
+        <div class="orbit-sweep"></div>
+        <span class="orbit-ping ping-one"></span>
+        <span class="orbit-ping ping-two"></span>
+        <div class="orbit-core">
+          <span class="orbit-arrow-wrap">
+            <svg class="orbit-arrow" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 31L58 7 38 58l-8-20L7 31z" fill="#F5C518" stroke="#FFD84A" stroke-width="1.2" stroke-linejoin="round"/>
+              <path d="M30 38L58 7" stroke="#E8A500" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </span>
         </div>
       </div>
     </div>
@@ -1664,14 +1743,7 @@ a { color: var(--color-primary); text-decoration: none; }
     <div class="footer-inner">
       <div class="footer-id">
         <a href="#hero" class="brand" aria-label="LogUp Mobility Intelligence — voltar ao topo">
-          <svg width="22" height="22" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-            <circle cx="16" cy="16" r="13" stroke="var(--color-primary)" stroke-width="2" stroke-dasharray="3 4"/>
-            <path d="M16 22V11M16 11l-4.5 4.5M16 11l4.5 4.5" stroke="var(--color-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <span class="brand-copy" style="font-size: 1rem;">
-            <span class="brand-name">Log<span class="up">Up</span></span>
-            <span class="brand-descriptor">Mobility Intelligence</span>
-          </span>
+          <img class="brand-logo footer-logo" src="Logup.png" alt="" width="150" height="44">
         </a>
         <p class="footer-meta">© 2026 LogUp Mobility Intelligence<br>UEMA — São Luís, Maranhão, Brasil</p>
       </div>
