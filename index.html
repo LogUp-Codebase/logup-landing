@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LogUp Mobility Intelligence — A inteligência que move as operações</title>
-<meta name="description" content="A LogUp Mob. Int. transforma dados de frota em decisões em tempo real — telemetria inteligente, mapas vivos e prevenção de riscos para transportadoras brasileiras. Startup originada na UEMA, candidata à 5ª Missão de Startups Brasileiras em Singapura.">
+<title>LogUp Mobility Intelligence — Intelligence that moves operations</title>
+<meta name="description" content="LogUp Mobility Intelligence turns fleet data into real-time decisions through intelligent telemetry, live maps and risk prevention.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -683,10 +683,23 @@ a { color: var(--color-primary); text-decoration: none; }
   position: relative;
   min-width: 0;
   overflow: hidden;
-  background: #0d1524;
+  isolation: isolate;
+  background: #eef1f3;
 }
 .liveops-map { position: absolute; inset: 0; }
 .maplibregl-canvas { outline: none; }
+.liveops-map .maplibregl-canvas {
+  filter: saturate(0.52) brightness(1.035) contrast(0.94);
+}
+.liveops-map-wrap::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  border: 1px solid rgba(30, 159, 232, 0.16);
+  box-shadow: inset 0 0 32px rgba(10, 14, 26, 0.06);
+  pointer-events: none;
+}
 .map-attribution {
   position: absolute;
   z-index: 3;
@@ -694,8 +707,8 @@ a { color: var(--color-primary); text-decoration: none; }
   bottom: 9px;
   padding: 3px 7px;
   border-radius: 4px;
-  background: rgba(10, 14, 26, 0.72);
-  color: rgba(240, 244, 255, 0.62);
+  background: rgba(255, 255, 255, 0.82);
+  color: rgba(10, 14, 26, 0.66);
   font: 0.58rem var(--font-mono);
   pointer-events: none;
 }
@@ -730,13 +743,16 @@ a { color: var(--color-primary); text-decoration: none; }
 }
 .vehicle-marker svg { transform: scale(1.15); }
 .drone-marker {
-  width: 34px;
-  height: 34px;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
   border-radius: 50%;
+  background: rgba(10, 30, 48, 0.9);
+  box-shadow: 0 0 0 3px rgba(255, 183, 0, 0.15);
   z-index: 2;
   animation: drone-pulse 1.5s ease-out infinite;
 }
-@keyframes drone-pulse { to { box-shadow: 0 0 0 14px rgba(245, 197, 24, 0); } }
+@keyframes drone-pulse { to { box-shadow: 0 0 0 11px rgba(255, 183, 0, 0); } }
 .destination-marker {
   width: 13px;
   height: 13px;
@@ -1263,8 +1279,8 @@ a { color: var(--color-primary); text-decoration: none; }
       <a href="#contato">Contato</a>
     </nav>
     <div class="language-switch" role="group" aria-label="Selecionar idioma">
-      <button type="button" data-lang="pt" class="active" aria-pressed="true">PT</button>
-      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      <button type="button" data-lang="pt" aria-pressed="false">PT</button>
+      <button type="button" data-lang="en" class="active" aria-pressed="true">EN</button>
     </div>
     <a href="#contato" class="btn btn-accent btn-sm header-cta">Candidatura Singapura</a>
     <button class="nav-toggle" id="navToggle" aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="mainNav">
@@ -1991,8 +2007,8 @@ const EN_TRANSLATIONS = {
 const originalTextNodes = new WeakMap();
 const originalAttributes = new WeakMap();
 let currentLanguage = (() => {
-  try { return localStorage.getItem('logup-language') === 'en' ? 'en' : 'pt'; }
-  catch { return 'pt'; }
+  try { return localStorage.getItem('logup-language') === 'pt' ? 'pt' : 'en'; }
+  catch { return 'en'; }
 })();
 
 const EN_INLINE_REPLACEMENTS = [
@@ -2258,7 +2274,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const map = new maplibregl.Map({
     container: 'liveopsMap',
-    style: 'https://tiles.openfreemap.org/styles/dark',
+    style: 'https://tiles.openfreemap.org/styles/bright',
     center: HUB,
     zoom: 13,
     interactive: false,
@@ -2280,7 +2296,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return `<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><rect x="3" y="7" width="14" height="8" rx="2" fill="${vehicle.color}"/><rect x="5" y="4" width="10" height="5" rx="1" fill="${vehicle.color}88"/><circle cx="6" cy="15" r="2" fill="#0A0E1A"/><circle cx="14" cy="15" r="2" fill="#0A0E1A"/></svg>`;
   };
 
-  const droneSvg = '<svg width="25" height="25" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="6" height="6" rx="1" fill="#F5C518"/><ellipse cx="5" cy="5" rx="4" ry="2" fill="#F5C518" opacity=".65" transform="rotate(-30 5 5)"/><ellipse cx="19" cy="5" rx="4" ry="2" fill="#F5C518" opacity=".65" transform="rotate(30 19 5)"/><ellipse cx="5" cy="19" rx="4" ry="2" fill="#F5C518" opacity=".65" transform="rotate(30 5 19)"/><ellipse cx="19" cy="19" rx="4" ry="2" fill="#F5C518" opacity=".65" transform="rotate(-30 19 19)"/><path d="M9 9L5 5m10 4l4-4M9 15l-4 4m10-4l4 4" stroke="#F5C518" stroke-width="1.5"/></svg>';
+  const droneSvg = '<svg width="25" height="25" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="6" height="6" rx="1" fill="#FFB000"/><ellipse cx="5" cy="5" rx="4" ry="2" fill="#FFB000" transform="rotate(-30 5 5)"/><ellipse cx="19" cy="5" rx="4" ry="2" fill="#FFB000" transform="rotate(30 19 5)"/><ellipse cx="5" cy="19" rx="4" ry="2" fill="#FFB000" transform="rotate(30 5 19)"/><ellipse cx="19" cy="19" rx="4" ry="2" fill="#FFB000" transform="rotate(-30 19 19)"/><path d="M9 9L5 5m10 4l4-4M9 15l-4 4m10-4l4 4" stroke="#FFB000" stroke-width="1.8"/></svg>';
   const interpolate = (start, end, progress) => [
     start[0] + (end[0] - start[0]) * progress,
     start[1] + (end[1] - start[1]) * progress
@@ -2323,7 +2339,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     map.addLayer({
       id: 'drone-flight', type: 'line', source: 'drone-flight',
-      paint: { 'line-color': '#F5C518', 'line-opacity': 0.55, 'line-width': 2, 'line-dasharray': [4, 4] }
+      paint: { 'line-color': '#D99000', 'line-opacity': 0.88, 'line-width': 2.6, 'line-dasharray': [3, 2.5] }
     });
 
     let nextBrakeAt = Date.now() + 30000;
