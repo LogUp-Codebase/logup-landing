@@ -735,14 +735,14 @@ a { color: var(--color-primary); text-decoration: none; }
   border-radius: 50%;
   background: var(--color-primary);
 }
-.vehicle-marker, .drone-marker, .destination-marker {
+.vehicle-marker, .moto-marker, .destination-marker {
   display: grid;
   place-items: center;
   cursor: default;
   filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.55));
 }
 .vehicle-marker svg { transform: scale(1.15); }
-.drone-marker {
+.moto-marker {
   width: 30px;
   height: 30px;
   border: 1px solid rgba(255, 255, 255, 0.9);
@@ -750,9 +750,9 @@ a { color: var(--color-primary); text-decoration: none; }
   background: rgba(10, 30, 48, 0.9);
   box-shadow: 0 0 0 3px rgba(255, 183, 0, 0.15);
   z-index: 2;
-  animation: drone-pulse 1.5s ease-out infinite;
+  animation: moto-pulse 2s ease-out infinite;
 }
-@keyframes drone-pulse { to { box-shadow: 0 0 0 11px rgba(255, 183, 0, 0); } }
+@keyframes moto-pulse { to { box-shadow: 0 0 0 9px rgba(255, 183, 0, 0); } }
 .destination-marker {
   width: 13px;
   height: 13px;
@@ -854,7 +854,7 @@ a { color: var(--color-primary); text-decoration: none; }
   color: var(--color-success);
 }
 .vehicle-chip.alert { color: var(--color-warning); }
-.vehicle-chip.drone { color: var(--color-accent); }
+.vehicle-chip.moto { color: var(--color-accent); }
 .chip-id { color: var(--color-text); font: 500 0.68rem var(--font-mono); }
 .chip-speed { color: var(--color-text-muted); font: 0.66rem var(--font-mono); white-space: nowrap; }
 .chip-signal { margin-left: auto; color: currentColor; font: 0.58rem var(--font-mono); letter-spacing: -0.08em; }
@@ -1164,7 +1164,7 @@ a { color: var(--color-primary); text-decoration: none; }
   .status-badge .dot,
   .flow-node.engine .icon,
   .timeline-item.current::before,
-  .drone-marker,
+  .moto-marker,
   .destination-marker,
   .live-dot,
   .chip-indicator { animation: none; }
@@ -1433,7 +1433,7 @@ a { color: var(--color-primary); text-decoration: none; }
           <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.5 3.5L13 4.5" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>IA preditiva de acidentes e atrasos</li>
           <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.5 3.5L13 4.5" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Integração IoT e sensores embarcados</li>
           <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.5 3.5L13 4.5" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Roteamento inteligente</li>
-          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.5 3.5L13 4.5" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Integração futura com drones logísticos</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.5 3.5L13 4.5" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Plataforma de dados aberta para integrações multimodais</li>
         </ul>
       </div>
     </div>
@@ -1595,7 +1595,7 @@ a { color: var(--color-primary); text-decoration: none; }
     <div class="liveops-intro reveal">
       <span class="section-label">// Veja a plataforma ao vivo</span>
       <h2 class="section-title" id="liveops-title">A operação inteira, em movimento.</h2>
-      <p class="section-intro">Uma simulação do LiveOps da LogUp Mobility Intelligence monitorando veículos e uma entrega por drone em São Luís, em tempo real.</p>
+      <p class="section-intro">Uma simulação do LiveOps da LogUp Mobility Intelligence monitorando veículos e entregas por moto em São Luís, em tempo real.</p>
     </div>
 
     <div class="liveops-console reveal">
@@ -1610,7 +1610,7 @@ a { color: var(--color-primary); text-decoration: none; }
       <div class="liveops-main">
         <div class="liveops-map-wrap">
           <div class="liveops-map" id="liveopsMap" role="img" aria-label="Mapa da frota LogUp Mobility Intelligence em movimento por São Luís, Maranhão"></div>
-          <div class="map-status">SÃO LUÍS · MA / 5 VEÍCULOS + 1 DRONE</div>
+          <div class="map-status">SÃO LUÍS · MA / 5 VEÍCULOS + 1 MOTO</div>
           <div class="map-attribution">© OpenStreetMap · MapLibre</div>
         </div>
 
@@ -1655,8 +1655,8 @@ a { color: var(--color-primary); text-decoration: none; }
           <li><span class="layer">Streaming</span><span class="stack-items">Kafka + Redis Streams + MQTT</span></li>
           <li><span class="layer">Infra</span><span class="stack-items">Docker + Kubernetes + Grafana + Prometheus</span></li>
           <li><span class="layer">IA/ML</span><span class="stack-items">Machine Learning operacional + IA preditiva</span></li>
-          <li><span class="layer">Hardware</span><span class="stack-items">Pixhawk + MAVLink + Raspberry Pi 4 + 4G/LTE</span></li>
-          <li><span class="layer">Geo</span><span class="stack-items">PostGIS para roteamento 3D + no-fly zones</span></li>
+          <li><span class="layer">Hardware</span><span class="stack-items">Rastreadores OBD-II + Raspberry Pi + 4G/LTE</span></li>
+          <li><span class="layer">Geo</span><span class="stack-items">PostGIS para análise geoespacial avançada</span></li>
           <li><span class="layer">Edge</span><span class="stack-items">Edge computing + dispositivos IoT embarcados</span></li>
         </ul>
       </div>
@@ -1706,8 +1706,8 @@ a { color: var(--color-primary); text-decoration: none; }
       </div>
       <div class="timeline-item future reveal" style="--reveal-delay: 480ms">
         <span class="phase">Fase 7</span>
-        <h3>Drone Express + Hubs Autônomos</h3>
-        <p>Logística híbrida, operações autônomas, infraestrutura inteligente.</p>
+        <h3>Expansão Multimodal + Infraestrutura Autônoma</h3>
+        <p>Logística híbrida, integração de novos modais e infraestrutura inteligente de larga escala.</p>
       </div>
     </div>
     <div class="goal-banner reveal">
@@ -1888,7 +1888,7 @@ const EN_TRANSLATIONS = {
   'IA preditiva de acidentes e atrasos': 'Predictive AI for accidents and delays',
   'Integração IoT e sensores embarcados': 'IoT and embedded sensor integration',
   'Roteamento inteligente': 'Intelligent routing',
-  'Integração futura com drones logísticos': 'Future logistics drone integration',
+  'Plataforma de dados aberta para integrações multimodais': 'Open data platform for multimodal integrations',
   '// Mercado-alvo': '// Target market',
   'Construída para onde o Brasil realmente opera': 'Built for where Brazil actually operates',
   'Pequenas e médias transportadoras': 'Small and medium-sized carriers',
@@ -1936,10 +1936,10 @@ const EN_TRANSLATIONS = {
   'Preparado para IA operacional': 'Ready for operational AI',
   '// Veja a plataforma ao vivo': '// See the platform live',
   'A operação inteira, em movimento.': 'The entire operation, in motion.',
-  'Uma simulação do LiveOps da LogUp Mobility Intelligence monitorando veículos e uma entrega por drone em São Luís, em tempo real.': 'A LogUp Mobility Intelligence LiveOps simulation monitoring vehicles and a drone delivery across São Luís in real time.',
+  'Uma simulação do LiveOps da LogUp Mobility Intelligence monitorando veículos e entregas por moto em São Luís, em tempo real.': 'A LogUp Mobility Intelligence LiveOps simulation monitoring vehicles and motorcycle deliveries across São Luís in real time.',
   'Centro de Operações': 'Operations Center',
   'AO VIVO': 'LIVE',
-  'SÃO LUÍS · MA / 5 VEÍCULOS + 1 DRONE': 'SÃO LUÍS · MA / 5 VEHICLES + 1 DRONE',
+  'SÃO LUÍS · MA / 5 VEÍCULOS + 1 MOTO': 'SÃO LUÍS · MA / 5 VEHICLES + 1 MOTO',
   'PAINEL DE ALERTAS': 'ALERT PANEL',
   'Demonstração simulada · Nenhum dado operacional real é exibido': 'Simulated demonstration · No real operational data is displayed',
   '// Tecnologia': '// Technology',
@@ -1951,7 +1951,7 @@ const EN_TRANSLATIONS = {
   'IA/ML': 'AI/ML',
   'Stack de Escala': 'Scale Stack',
   'Machine Learning operacional + IA preditiva': 'Operational machine learning + predictive AI',
-  'PostGIS para roteamento 3D + no-fly zones': 'PostGIS for 3D routing + no-fly zones',
+  'PostGIS para análise geoespacial avançada': 'PostGIS for advanced geospatial analysis',
   'Edge computing + dispositivos IoT embarcados': 'Edge computing + embedded IoT devices',
   'Modo offline-first · Compressão inteligente de dados · Roteamento regional adaptativo': 'Offline-first mode · Intelligent data compression · Adaptive regional routing',
   'Projetado para regiões com conectividade limitada — onde o Brasil mais precisa.': 'Designed for regions with limited connectivity — where Brazil needs it most.',
@@ -1970,8 +1970,8 @@ const EN_TRANSLATIONS = {
   'Previsão de acidentes, roteamento inteligente, ML aplicado.': 'Accident prediction, intelligent routing and applied ML.',
   'Integração Multimodal': 'Multimodal Integration',
   'Motos, vans, caminhões, embarcações.': 'Motorcycles, vans, trucks and vessels.',
-  'Drone Express + Hubs Autônomos': 'Drone Express + Autonomous Hubs',
-  'Logística híbrida, operações autônomas, infraestrutura inteligente.': 'Hybrid logistics, autonomous operations and intelligent infrastructure.',
+  'Expansão Multimodal + Infraestrutura Autônoma': 'Multimodal Expansion + Autonomous Infrastructure',
+  'Logística híbrida, integração de novos modais e infraestrutura inteligente de larga escala.': 'Hybrid logistics, integration of new modalities and intelligent large-scale infrastructure.',
   'Objetivo 2026–2027': '2026–2027 Goal',
   'Validar operação': 'Validate the operation',
   'Conquistar primeiros contratos': 'Secure the first contracts',
@@ -1995,12 +1995,12 @@ const EN_TRANSLATIONS = {
   'Entrar em Contato': 'Get in Touch',
   'UEMA — São Luís, Maranhão, Brasil': 'UEMA — São Luís, Maranhão, Brazil',
   'Candidata à 5ª Missão SEBRAE de Startups em Singapura · "A inteligência que move as operações."': 'Candidate for the 5th SEBRAE Startup Mission in Singapore · "The intelligence that moves operations."',
-  'EM VOO': 'IN FLIGHT', 'ENTREGA': 'DELIVERY', 'agora mesmo': 'just now',
+  'EM ROTA': 'EN ROUTE', 'ENTREGA': 'DELIVERY', 'agora mesmo': 'just now',
   '⚠ FRENAGEM BRUSCA': '⚠ HARSH BRAKING', '🚨 EXCESSO DE VELOCIDADE': '🚨 SPEEDING',
-  '⌖ ROTA DESVIADA': '⌖ ROUTE DEVIATION', '✈ DRONE EM VOO': '✈ DRONE IN FLIGHT',
+  '⌖ ROTA DESVIADA': '⌖ ROUTE DEVIATION', '🏍 MOTO EM ROTA': '🏍 MOTO EN ROUTE',
   '✓ ENTREGA CONFIRMADA': '✓ DELIVERY CONFIRMED', '◔ SINAL FRACO': '◔ WEAK SIGNAL',
   'MAPA TEMPORARIAMENTE INDISPONÍVEL': 'MAP TEMPORARILY UNAVAILABLE',
-  'Pedido': 'Order', 'ajuste preventivo': 'preventive adjustment', 'corredor aéreo livre': 'air corridor clear',
+  'Pedido': 'Order', 'ajuste preventivo': 'preventive adjustment', 'rota confirmada': 'route confirmed',
   '2 de 4 barras': '2 of 4 bars', 'evento analisado': 'event analyzed', 'conexão instável': 'unstable connection'
 };
 
@@ -2014,7 +2014,7 @@ let currentLanguage = (() => {
 const EN_INLINE_REPLACEMENTS = [
   ['Pedido', 'Order'],
   ['ajuste preventivo', 'preventive adjustment'],
-  ['corredor aéreo livre', 'air corridor clear'],
+  ['rota confirmada', 'route confirmed'],
   ['2 de 4 barras', '2 of 4 bars'],
   ['evento analisado', 'event analyzed'],
   ['conexão instável', 'unstable connection']
@@ -2126,7 +2126,7 @@ if (reduceMotion || !('IntersectionObserver' in window)) {
   revealEls.forEach(el => observer.observe(el));
 }
 
-// LiveOps: simulação autocontida de frota e drone em São Luís
+// LiveOps: simulação autocontida de frota e entregas por moto em São Luís
 document.addEventListener('DOMContentLoaded', () => {
   const mapContainer = document.getElementById('liveopsMap');
   const alertsList = document.getElementById('alertsList');
@@ -2137,7 +2137,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const HUB = [-44.3028, -2.5297];
   const TICK_MS = 100;
   const VEHICLE_SPEED = reduceMotion ? 0 : 0.002;
-  const DRONE_SPEED = reduceMotion ? 0 : 0.004;
   const vehicles = [
     {
       id: 'CAR-01', type: 'car', color: '#22C55E', baseSpeed: 48,
@@ -2152,17 +2151,22 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'VAN-03', type: 'van', color: '#F59E0B', baseSpeed: 31,
       speed: 31, signal: 3, status: 'alert', neighborhood: 'Calhau',
-      route: [[-44.2700,-2.5000],[-44.2668,-2.5032],[-44.2695,-2.5070],[-44.2740,-2.5040],[-44.2700,-2.5000]]
+      route: [[-44.2700,-2.5180],[-44.2668,-2.5212],[-44.2695,-2.5248],[-44.2740,-2.5215],[-44.2700,-2.5180]]
     },
     {
       id: 'VAN-04', type: 'van', color: '#22C55E', baseSpeed: 55,
-      speed: 55, signal: 4, status: 'normal', neighborhood: 'Cohama',
-      route: [[-44.3200,-2.5400],[-44.3165,-2.5370],[-44.3125,-2.5395],[-44.3153,-2.5430],[-44.3200,-2.5400]]
+      speed: 55, signal: 4, status: 'normal', neighborhood: 'João Paulo',
+      route: [[-44.2650,-2.5420],[-44.2615,-2.5392],[-44.2588,-2.5415],[-44.2615,-2.5445],[-44.2650,-2.5420]]
     },
     {
       id: 'CAM-01', type: 'truck', color: '#22C55E', baseSpeed: 72,
-      speed: 72, signal: 3, status: 'normal', neighborhood: 'São Francisco',
-      route: [[-44.3100,-2.5100],[-44.3058,-2.5075],[-44.3015,-2.5108],[-44.3045,-2.5145],[-44.3100,-2.5100]]
+      speed: 72, signal: 3, status: 'normal', neighborhood: 'Renascença II',
+      route: [[-44.2900,-2.5210],[-44.2862,-2.5185],[-44.2832,-2.5208],[-44.2862,-2.5238],[-44.2900,-2.5210]]
+    },
+    {
+      id: 'MOTO-01', type: 'moto', color: '#F5C518', baseSpeed: 38,
+      speed: 38, signal: 4, status: 'normal', neighborhood: 'Anil',
+      route: [[-44.2820,-2.5350],[-44.2785,-2.5322],[-44.2758,-2.5345],[-44.2785,-2.5375],[-44.2820,-2.5350]]
     }
   ];
 
@@ -2173,28 +2177,16 @@ document.addEventListener('DOMContentLoaded', () => {
     vehicle.pauseUntil = 0;
   });
 
-  const drone = {
-    id: 'DRONE-1', origin: HUB,
-    destinations: [[-44.2850,-2.5150],[-44.2700,-2.5000],[-44.3200,-2.5400],[-44.3100,-2.5100]],
-    destinationNames: ['Renascença', 'Calhau', 'Cohama', 'São Francisco'],
-    currentDest: 0, progress: 0, direction: 'outbound', pauseUntil: 0, marker: null, destinationMarker: null
-  };
 
   const signalDots = value => `${'●'.repeat(value)}${'○'.repeat(4 - value)}`;
   const renderTelemetry = () => {
     telemetryBar.innerHTML = vehicles.map(vehicle => `
-      <div class="vehicle-chip ${vehicle.status === 'alert' ? 'alert' : ''}" id="chip-${vehicle.id}">
+      <div class="vehicle-chip ${vehicle.status === 'alert' ? 'alert' : ''}${vehicle.type === 'moto' ? ' moto' : ''}" id="chip-${vehicle.id}">
         <span class="chip-indicator" aria-hidden="true"></span>
         <span class="chip-id">${vehicle.id}</span>
         <span class="chip-speed">${vehicle.speed} km/h</span>
         <span class="chip-signal">${signalDots(vehicle.signal)}</span>
-      </div>`).join('') + `
-      <div class="vehicle-chip drone" id="chip-${drone.id}">
-        <span class="chip-indicator" aria-hidden="true"></span>
-        <span class="chip-id">${drone.id}</span>
-        <span class="chip-speed">EM VOO</span>
-        <span class="chip-signal">${signalDots(4)}</span>
-      </div>`;
+      </div>`).join('');
     translateTree(telemetryBar);
   };
 
@@ -2206,8 +2198,6 @@ document.addEventListener('DOMContentLoaded', () => {
       chip.querySelector('.chip-speed').textContent = `${vehicle.speed} km/h`;
       chip.querySelector('.chip-signal').textContent = signalDots(vehicle.signal);
     });
-    const droneChip = document.getElementById(`chip-${drone.id}`);
-    if (droneChip) droneChip.querySelector('.chip-speed').textContent = Date.now() < drone.pauseUntil ? 'ENTREGA' : 'EM VOO';
     translateTree(telemetryBar);
   };
 
@@ -2215,7 +2205,7 @@ document.addEventListener('DOMContentLoaded', () => {
     braking: { label: '⚠ FRENAGEM BRUSCA', color: '#F59E0B' },
     speeding: { label: '🚨 EXCESSO DE VELOCIDADE', color: '#EF4444' },
     route: { label: '⌖ ROTA DESVIADA', color: '#1E9FE8' },
-    drone: { label: '✈ DRONE EM VOO', color: '#F5C518' },
+    moto: { label: '🏍 MOTO EM ROTA', color: '#F5C518' },
     delivery: { label: '✓ ENTREGA CONFIRMADA', color: '#22C55E' },
     signal: { label: '◔ SINAL FRACO', color: '#8899BB' }
   };
@@ -2250,13 +2240,13 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   renderTelemetry();
-  pushAlert('drone', 'DRONE-1 · PKG-07 → B2', 'Centro → Renascença');
+  pushAlert('moto', 'MOTO-01 · em operação', 'Anil');
   window.setTimeout(() => pushAlert('braking', 'VAN-03 · 31 → 0 km/h', 'Av. Litorânea · Calhau'), 500);
   window.setTimeout(() => pushAlert('delivery', 'CAR-02 · Pedido #1842', 'Renascença'), 1000);
   const ambientAlerts = [
-    () => pushAlert('route', 'CAM-01 · ajuste preventivo', 'São Francisco'),
-    () => pushAlert('drone', 'DRONE-1 · corredor aéreo livre', 'Centro → Calhau'),
-    () => pushAlert('signal', 'VAN-04 · 2 de 4 barras', 'Cohama'),
+    () => pushAlert('route', 'CAM-01 · ajuste preventivo', 'Renascença II'),
+    () => pushAlert('delivery', 'MOTO-01 · Pedido #2301', 'Anil'),
+    () => pushAlert('signal', 'VAN-04 · 2 de 4 barras', 'João Paulo'),
     () => pushAlert('delivery', 'CAR-01 · Pedido #1851', 'Centro'),
     () => pushAlert('braking', 'VAN-03 · evento analisado', 'Calhau')
   ];
@@ -2291,12 +2281,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const vehicleSvg = vehicle => {
+    if (vehicle.type === 'moto') return `<svg width="22" height="18" viewBox="0 0 22 18" aria-hidden="true"><circle cx="4.5" cy="13.5" r="3.5" fill="${vehicle.color}"/><circle cx="4.5" cy="13.5" r="1.8" fill="#0A0E1A"/><circle cx="17.5" cy="13.5" r="3.5" fill="${vehicle.color}"/><circle cx="17.5" cy="13.5" r="1.8" fill="#0A0E1A"/><path d="M8 13.5h6M4.5 13.5L7.5 6h4L15 13.5" stroke="${vehicle.color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M11.5 6h5L17.5 13.5" stroke="${vehicle.color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="9" y="3.5" width="3" height="2" rx="0.5" fill="${vehicle.color}"/></svg>`;
     if (vehicle.type === 'van') return `<svg width="22" height="18" viewBox="0 0 22 18" aria-hidden="true"><rect x="2" y="5" width="18" height="10" rx="2" fill="${vehicle.color}"/><rect x="2" y="5" width="8" height="6" rx="1" fill="${vehicle.color}88"/><circle cx="6" cy="15" r="2" fill="#0A0E1A"/><circle cx="16" cy="15" r="2" fill="#0A0E1A"/></svg>`;
     if (vehicle.type === 'truck') return `<svg width="26" height="18" viewBox="0 0 26 18" aria-hidden="true"><rect x="2" y="6" width="20" height="9" rx="1" fill="${vehicle.color}"/><rect x="2" y="3" width="8" height="7" rx="1" fill="${vehicle.color}88"/><circle cx="7" cy="15" r="2" fill="#0A0E1A"/><circle cx="19" cy="15" r="2" fill="#0A0E1A"/></svg>`;
     return `<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><rect x="3" y="7" width="14" height="8" rx="2" fill="${vehicle.color}"/><rect x="5" y="4" width="10" height="5" rx="1" fill="${vehicle.color}88"/><circle cx="6" cy="15" r="2" fill="#0A0E1A"/><circle cx="14" cy="15" r="2" fill="#0A0E1A"/></svg>`;
   };
 
-  const droneSvg = '<svg width="25" height="25" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="6" height="6" rx="1" fill="#FFB000"/><ellipse cx="5" cy="5" rx="4" ry="2" fill="#FFB000" transform="rotate(-30 5 5)"/><ellipse cx="19" cy="5" rx="4" ry="2" fill="#FFB000" transform="rotate(30 19 5)"/><ellipse cx="5" cy="19" rx="4" ry="2" fill="#FFB000" transform="rotate(30 5 19)"/><ellipse cx="19" cy="19" rx="4" ry="2" fill="#FFB000" transform="rotate(-30 19 19)"/><path d="M9 9L5 5m10 4l4-4M9 15l-4 4m10-4l4 4" stroke="#FFB000" stroke-width="1.8"/></svg>';
   const interpolate = (start, end, progress) => [
     start[0] + (end[0] - start[0]) * progress,
     start[1] + (end[1] - start[1]) * progress
@@ -2325,22 +2315,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    const droneElement = document.createElement('div');
-    droneElement.className = 'drone-marker';
-    droneElement.innerHTML = droneSvg;
-    drone.marker = new maplibregl.Marker({ element: droneElement, anchor: 'center' }).setLngLat(HUB).addTo(map);
-    const destinationElement = document.createElement('div');
-    destinationElement.className = 'destination-marker';
-    drone.destinationMarker = new maplibregl.Marker({ element: destinationElement, anchor: 'center' })
-      .setLngLat(drone.destinations[0]).addTo(map);
-    map.addSource('drone-flight', {
-      type: 'geojson',
-      data: { type: 'Feature', geometry: { type: 'LineString', coordinates: [HUB, drone.destinations[0]] } }
-    });
-    map.addLayer({
-      id: 'drone-flight', type: 'line', source: 'drone-flight',
-      paint: { 'line-color': '#D99000', 'line-opacity': 0.88, 'line-width': 2.6, 'line-dasharray': [3, 2.5] }
-    });
 
     let nextBrakeAt = Date.now() + 30000;
     let nextRouteAlertAt = Date.now() + 45000;
@@ -2374,40 +2348,18 @@ document.addEventListener('DOMContentLoaded', () => {
         nextBrakeAt = now + 30000;
       }
       if (now >= nextRouteAlertAt) {
-        pushAlert('route', 'CAM-01 · +1,2 km', 'São Francisco');
+        pushAlert('route', 'CAM-01 · +1,2 km', 'Renascença II');
         nextRouteAlertAt = now + 45000;
       }
       if (now >= nextSignalAlertAt) {
         const van = vehicles.find(vehicle => vehicle.id === 'VAN-04');
         van.signal = 2;
-        pushAlert('signal', 'VAN-04 · conexão instável', 'Cohama');
+        pushAlert('signal', 'VAN-04 · conexão instável', 'João Paulo');
         updateTelemetry();
         window.setTimeout(() => { van.signal = 4; updateTelemetry(); }, 8000);
         nextSignalAlertAt = now + 60000;
       }
 
-      if (now < drone.pauseUntil || DRONE_SPEED === 0) return;
-      drone.progress += DRONE_SPEED;
-      const destination = drone.destinations[drone.currentDest];
-      const start = drone.direction === 'outbound' ? HUB : destination;
-      const end = drone.direction === 'outbound' ? destination : HUB;
-      drone.marker.setLngLat(interpolate(start, end, Math.min(drone.progress, 1)));
-      if (drone.progress >= 1) {
-        drone.progress = 0;
-        drone.pauseUntil = now + 2000;
-        if (drone.direction === 'outbound') {
-          pushAlert('delivery', `DRONE-1 · PKG-${String(drone.currentDest + 7).padStart(2, '0')}`, drone.destinationNames[drone.currentDest]);
-          drone.direction = 'returning';
-        } else {
-          drone.currentDest = (drone.currentDest + 1) % drone.destinations.length;
-          drone.direction = 'outbound';
-          const nextDestination = drone.destinations[drone.currentDest];
-          drone.destinationMarker.setLngLat(nextDestination);
-          setLineData('drone-flight', [HUB, nextDestination]);
-          pushAlert('drone', `DRONE-1 · PKG-${String(drone.currentDest + 7).padStart(2, '0')} → B${drone.currentDest + 2}`, `Centro → ${drone.destinationNames[drone.currentDest]}`);
-        }
-        updateTelemetry();
-      }
     }, TICK_MS);
 
     window.setInterval(() => {
@@ -2419,7 +2371,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const truck = vehicles.find(vehicle => vehicle.id === 'CAM-01');
       if (Math.random() > 0.72) {
         truck.speed = 82 + Math.floor(Math.random() * 6);
-        pushAlert('speeding', `CAM-01 · ${truck.speed} km/h`, 'Av. dos Holandeses');
+        pushAlert('speeding', `CAM-01 · ${truck.speed} km/h`, 'Av. Jerônimo de Albuquerque');
       }
       updateTelemetry();
     }, 5000);
